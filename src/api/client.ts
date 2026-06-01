@@ -211,7 +211,7 @@ async function attemptTokenRefresh(): Promise<boolean> {
 
   try {
     const base = getBaseUrl();
-    const response = await fetch(`${base}/api/v1/auth/refresh`, {
+    const response = await fetch(`${base}/covibe_api/v1/auth/refresh`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh: _refreshToken }),
@@ -252,7 +252,7 @@ export async function login(
   idToken: string,
   provider: string,
 ): Promise<OidcLoginResponse> {
-  const result = await request<OidcLoginResponse>("POST", "/api/v1/auth/oidc/login", {
+  const result = await request<OidcLoginResponse>("POST", "/covibe_api/v1/auth/oidc/login", {
     body: { id_token: idToken, provider },
   });
   setTokens(result.access, result.refresh);
@@ -263,14 +263,14 @@ export async function login(
  * Get current user profile.
  */
 export async function getUser(): Promise<UserInfo> {
-  return request<UserInfo>("GET", "/api/v1/users/me");
+  return request<UserInfo>("GET", "/covibe_api/v1/users/me");
 }
 
 /**
  * List all workspaces for the authenticated user.
  */
 export async function getWorkspaces(): Promise<Workspace[]> {
-  return request<Workspace[]>("GET", "/api/v1/workspaces");
+  return request<Workspace[]>("GET", "/covibe_api/v1/workspaces");
 }
 
 /**
@@ -281,7 +281,7 @@ export async function createWorkspace(data: {
   description?: string;
   config?: Record<string, unknown>;
 }): Promise<Workspace> {
-  return request<Workspace>("POST", "/api/v1/workspaces", { body: data });
+  return request<Workspace>("POST", "/covibe_api/v1/workspaces", { body: data });
 }
 
 /**
@@ -296,14 +296,14 @@ export async function updateWorkspace(
     config: Record<string, unknown>;
   }>,
 ): Promise<Workspace> {
-  return request<Workspace>("PATCH", `/api/v1/workspaces/${id}`, { body: data });
+  return request<Workspace>("PATCH", `/covibe_api/v1/workspaces/${id}`, { body: data });
 }
 
 /**
  * Delete (archive) a workspace.
  */
 export async function deleteWorkspace(id: string): Promise<void> {
-  await request<void>("DELETE", `/api/v1/workspaces/${id}`);
+  await request<void>("DELETE", `/covibe_api/v1/workspaces/${id}`);
 }
 
 /**
@@ -312,14 +312,14 @@ export async function deleteWorkspace(id: string): Promise<void> {
 export async function registerMachine(
   data: RegisterMachineRequest,
 ): Promise<MachineInfo> {
-  return request<MachineInfo>("POST", "/api/v1/machines/register", { body: data });
+  return request<MachineInfo>("POST", "/covibe_api/v1/machines/register", { body: data });
 }
 
 /**
  * List all registered machines.
  */
 export async function getMachines(): Promise<MachineInfo[]> {
-  return request<MachineInfo[]>("GET", "/api/v1/machines");
+  return request<MachineInfo[]>("GET", "/covibe_api/v1/machines");
 }
 
 /**
