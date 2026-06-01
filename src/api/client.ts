@@ -211,7 +211,7 @@ async function attemptTokenRefresh(): Promise<boolean> {
 
   try {
     const base = getBaseUrl();
-    const response = await fetch(`${base}/covibe_api/v1/auth/refresh`, {
+    const response = await fetch(`${base}/covibe_api/v1/auth/token/refresh`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh: _refreshToken }),
